@@ -7,16 +7,6 @@ import com.syntax.utils.BaseClass;
 
 public class AddEmployeePage extends BaseClass{
 	
-//	US24548: Add Employee Details
-//	TestCase: Add Employee Verification
-//	Step 1: Login to the OrangeHRM
-//	Step 2: Click on PIM
-//	Step 3: Click on Add Employee
-//	Step 4: Enter fName, lName, select Location
-//	Step 5 Click Save
-//	Step 6: Verify employee is added
-//	     */
-
 	@FindBy(id="firstName")
     public WebElement firstName;
     
@@ -29,10 +19,26 @@ public class AddEmployeePage extends BaseClass{
     @FindBy(id="employeeId")
     public WebElement employeeId;
     
+    @FindBy(xpath="//div[@id='location_inputfileddiv']//input")
+    public WebElement location;
+    
+    @FindBy(xpath="//div[@id='location_inputfileddiv']//ul")
+    public WebElement locationList;
+    
+    @FindBy(xpath="//input[@id='chkLogin']")
+    public WebElement createLoginDetails;
+    
+    @FindBy(id="systemUserSaveBtn")
+    public WebElement saveBtn;
+    
+    @FindBy(xpath="//span[@id='pim.navbar.employeeName']")
+    public WebElement empCheck;
+    
     public AddEmployeePage() {
         PageFactory.initElements(driver,this);
     }
 }
+
 	
 	
 	

@@ -36,8 +36,6 @@ public class CommonMethods extends BaseClass {
 				System.out.println("Option with text " + text + " is selected");
 				isSelected = true;
 				break;
-			} else {
-				System.out.println("Option with text " + text + " is not available");
 			}
 		}
 		if (!isSelected) {
@@ -54,6 +52,11 @@ public class CommonMethods extends BaseClass {
 	public static void selectValueFromDD(WebElement element, int index) {
 		Select select = new Select(element);
 		List<WebElement> options = select.getOptions();
+		if (options.size() > index) {
+			select.selectByIndex(index);
+		} else {
+			System.out.println("Invalid index has been passed");
+		}
 	}
 
 	public static void sendText(WebElement element, String value) {
@@ -171,16 +174,19 @@ public class CommonMethods extends BaseClass {
 		wait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
 
-	public static void takeScreenshot(String folderName, String fileName) {
+	public static String takeScreenshot(String fileName) {
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File scr = ts.getScreenshotAs(OutputType.FILE);
 
+		String dest=System.getProperty("user.dir")+"/target/screenshots/"+ fileName + ".png";
+		
 		try {
-			FileUtils.copyFile(scr, new File("screenshots/" + folderName + "/" + fileName + ".png"));
+			FileUtils.copyFile(scr, new File(dest));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Unable to take screesnhot");
 		}
+		return dest;
 	}
 
 	public static void scrollDown(int pixels) {
@@ -203,4 +209,16 @@ public class CommonMethods extends BaseClass {
 		element.click();
 	}
 
+	public static void selectList(WebElement element, String text) {
+
+		List<WebElement> listLocations = element.findElements(By.tagName("li"));
+		for (WebElement li : listLocations) {
+			String liText = li.getAttribute("innerHTML");
+
+			if (liText.contains(text)) {
+				li.click();
+				break;
+			}
+		}
+	}
 }

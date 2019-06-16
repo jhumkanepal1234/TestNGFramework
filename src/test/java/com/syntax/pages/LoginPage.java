@@ -22,6 +22,9 @@ public class LoginPage extends BaseClass {
 
 	@FindBy(css = "img[src*='logo.png']")
 	public WebElement logo;
+	
+	@FindBy(xpath="//div[@class='toast-message']")
+    public WebElement message;
 
 	// initialize all of our variables
 	public LoginPage() {
